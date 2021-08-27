@@ -6,10 +6,14 @@
   "browser_action": {
     "default_icon": "icon.png",
     "default_title": "Click Me",
-    "default_popup": "src/popup.html"
+    "default_popup": "./src/popup.html"
   },
-  "background":{
-          "service_worker": "backgroundScripts/main.js"
-  },
-  "permissions": []
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["./contentScripts/keyListener.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": ["tabs"]
 }
