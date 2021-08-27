@@ -1,10 +1,6 @@
 from selenium import webdriver
-from beautifulsoup4 import BeautifulSoup
-import typing
-
-# password-siding
-# user-siding
-# "https://www.ing.uc.cl/"
+from bs4 import BeautifulSoup
+from typing import List
 
 # TODO: should this be interactive through the terminal?
 
@@ -15,16 +11,17 @@ class WebScrapper:
         # fix this hardcoded path to make it portable to all OS
         self.driver = webdriver.Chrome(
             "/usr/lib/chromium-browser/chromedriver")
-        self.loaded = False
+        self.tags = []
 
     def load_page(self) -> None:
+        print("Loading page...")
         self.driver.get(self.url)
-        self.bs = BeautifulSoup(self.driver.page_source)
 
     def send_input(self,
                    input: str,
                    input_identifier: str,
                    strategy: str = "id") -> None:
+        print("Sending input...")
         try:
             if strategy == "id":
                 self.driver.find_element_by_id(input_identifier).send_keys(
@@ -38,18 +35,29 @@ class WebScrapper:
                 % str(e))
 
     def submit(self, button_identifier: str, strategy: str = "id") -> None:
+        print("Submitting info...")
         if strategy == "id":
             self.driver.find_element_by_id(button_identifier).click()
+        elif strategy == "form":
+            btn = self.driver.find_element_by_xpath(
+                '//*[@id="form-siding"]/input[3]')
+            btn.click()
         else:
             self.driver.find_element_by_class_name(button_identifier).click()
+        self.driver.close();
+        self.driver.switch_to.window(self.driver.window_handles[0]);
 
-    def scrap(self, tags: list[str], ref_str: str) -> list[str]:
-        # tags example: ["a","form"]
-        # ref_str to lead scrapping, for example "www"
+    def scrap(self, tag: str) -> None:
+        print("Scrapping...")
+        self.bs = BeautifulSoup(self.driver.page_source,
+                                features="html.parser")
+        self.tags = self.bs.find_all(tag)
 
-        # self.bs.html.find_all ?
-        return list(filter(lambda x: ref_str in x.string,
-                               self.bs.find_all(tags)))
-
-    def extract(self, filtered_tags : list[str]) -> None:
-        pass
+    def extract_links(self) -> None:
+        print("Extracting links...")
+        self.tags = list(filter(lambda x: x.string != None and x['href']!='#', self.tags))
+        self.tags = list(map(lambda x: (x.string.strip(),x['href']), self.tags))
+        with open('links.txt', 'w') as file:
+            for c,tag in enumerate(self.tags):
+                file.write(f"{c}: {tag}\n")
+        self.driver.close();
