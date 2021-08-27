@@ -1,11 +1,15 @@
 {
-    "manifest_version":2,
-    "name": "searchIng",
-    "description": "Simple search bar to navigate through Siding and others...",
-    "version": "1.0",
-    "browser_action": {
-        "default_icon":"icon.png",
-        "default_popup": "src/popup.html"
-    },
-    "permissions":[]
+  "manifest_version": 2,
+  "name": "searchIng",
+  "description": "Simple search bar to navigate through Siding and other IngUc pages...",
+  "version": "1.0",
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Click Me",
+    "default_popup": "src/popup.html"
+  },
+  "background":{
+          "service_worker": "backgroundScripts/main.js"
+  },
+  "permissions": []
 }
