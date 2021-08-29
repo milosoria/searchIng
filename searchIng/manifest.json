@@ -1,19 +1,28 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "searchIng",
   "description": "Simple search bar to navigate through Siding and other IngUc pages...",
   "version": "1.0",
-  "browser_action": {
+  "action": {
+    "default_title": "Press Ctrl+/ to prompt the search bar UI",
     "default_icon": "icon.png",
-    "default_title": "Click Me",
     "default_popup": "./src/popup.html"
   },
-  "content_scripts": [
-    {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["./contentScripts/keyListener.js"],
-      "run_at": "document_start"
+  "commands": {
+    "prompt_search_bar": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+S",
+        "mac": "Command+Shift+S"
+      },
+      "description": "Prompt search bar to navigate through the page's links"
     }
-  ],
-  "permissions": ["tabs"]
+  },
+  "background": {
+      "service_worker":"initializer.js",
+      "type": "module"
+  },
+  "permissions": [
+      "tabs",
+      "activeTab"
+  ]
 }

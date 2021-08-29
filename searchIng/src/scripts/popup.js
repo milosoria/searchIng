@@ -1,13 +1,17 @@
 //In order to start the rendering with this call,
-//internal message should be sent to UI renderer, or simply triggered by a shortcut handled by a background service_worker
-const {isValidUrl} = require('../lib/utils.js');
+    //internal message should be sent to UI renderer, or simply triggered by a shortcut handled by a background service_worker
+import isValidUrl from "../../lib/utils.js";
 
-const bttnMain = document.getElementById("bttnMain");
+const mainBttn = document.getElementById("mainBttn");
 
-bttnMain.onClick((event) => {
-        if (isValidUrl()) {
-                chrome.runtime.sendMessage({ initialize: true }, (response) => {});
-        } else {
-                alert('This is not Siding UWU')
-        }
+mainBttn.addEventListener("click", (event) => {
+    const isValid = isValidUrl().then((isValid)=>{
+        return isValid
+    })
+    if (isValid) {
+        // chrome.runtime.sendMessage({ initialize: true }, (response) => {});
+    } else {
+        alert("This is not Siding");
+    }
+
 });

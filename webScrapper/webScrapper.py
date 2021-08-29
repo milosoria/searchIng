@@ -58,6 +58,7 @@ class WebScrapper:
         self.tags = list(filter(lambda x: x.string != None and x['href']!='#', self.tags))
         self.tags = list(map(lambda x: (x.string.strip(),x['href']), self.tags))
         with open('links.txt', 'w') as file:
-            for c,tag in enumerate(self.tags):
-                file.write(f"{c}: {tag}\n")
+            for tag in self.tags:
+                # is this json like format?
+                file.write(f'{tag[0]}: {tag[1]},')
         self.driver.close();
