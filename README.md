@@ -1,6 +1,6 @@
 # searchIng
 
-Simple extension that popup a search bar to navigate through Siding pages
+Simple extension that pops up a search bar to navigate through Siding pages
 
 ## WorkFlow and TODO for each item:
 
