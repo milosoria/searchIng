@@ -1,7 +1,5 @@
 import isValidUrl from "./lib/utils.js";
-// import Handler from "./src/scripts/handler.js";
-// import {Handler} from "./src/scripts/handler.js";
-// TODO: how am i supposed tto do this
+import Handler from "./src/scripts/handler.js";
 
 chrome.commands.onCommand.addListener((command) => {
     console.log(`Executing the following command: ${command}`);
@@ -11,11 +9,12 @@ chrome.commands.onCommand.addListener((command) => {
     })
 
     if (command == "prompt_search_bar" && isValid) {
+        console.log("Url valid, starting to load search bar");
         chrome.runtime.sendMessage({ initialize: true }, (response) => {});
-    } else {
+    } else { 
         alert("This is not Siding");
-    }
+    } 
 });
 
-
-// const handler = new Handler();
+// Main handler for all operations and options
+const handler = new Handler();
