@@ -1,6 +1,7 @@
 export default class Handler {
 
     constructor() {
+        // Handler will listen to messages sent by the event emitter
         chrome.runtime.onMessage.addListener(this.listen);
         this.dataName = "../../data.json";
         this.dataFiltered = {}
@@ -21,23 +22,7 @@ export default class Handler {
             console.log("Error in json parsing", error);
 
         }
-        // Handler will listen to messages sent by the event emitter
 
-    }
-
-    sendMessage(message) {
-        console.log("Sending the following message: ", message);
-        chrome.runtime.sendMessage(message, (response) => {});
-    }
-
-    search(input) {
-        // search in searchCache depending on the input, should this use regex or pure js
-        // if no key in this.dataName matches the input then send a message notifying the searchBarUI
-    }
-
-    unload() {
-        // unload searchCache
-        this.searchCache = {};
     }
 
     listen(message, sender, sendResponse) {
@@ -54,4 +39,21 @@ export default class Handler {
             this.unload();
         }
     }
+
+    sendMessage(message) {
+        console.log("Sending the following message: ", message);
+        chrome.runtime.sendMessage(message, (response) => {});
+    }
+
+    search(input) {
+        // TODO: closee
+        // search in searchCache depending on the input, should this use regex or pure js
+        // if no key in this.dataName matches the input then send a message notifying the searchBarUI
+    }
+
+    unload() {
+        // unload searchCache
+        this.searchCache = {};
+    }
+
 }
