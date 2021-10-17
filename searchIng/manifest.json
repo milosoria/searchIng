@@ -18,9 +18,15 @@
         }
     },
     "background": {
-        "service_worker": "initializer.js",
+        "service_worker": "background.js",
         "type": "module"
     },
+    "content_scripts": [
+       {
+        "matches": [ "https://intrawww.ing.puc.cl/*" ],
+         "js": ["./src/scripts/handler.js"]
+       }
+     ],
     "permissions": [
         "tabs",
         "activeTab"

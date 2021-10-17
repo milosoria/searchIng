@@ -1,8 +1,9 @@
 # searchIng
 
-Simple extension that pops up a search bar to navigate through Siding pages
+Simple extension that pops up a search bar to navigate through Siding pages.
+Although it may be usable for other pages extending the scrapping system, so it scraps all a tags inside a page and generates data.json dinamically. 
+If it works, it would make navigation, inside a page with too much info, easier and faster.
 
-## WorkFlow and TODO for each item:
 
 1. Loading of the links data to the Handler class, triggered by message (chrome.runtime) sent after:
 

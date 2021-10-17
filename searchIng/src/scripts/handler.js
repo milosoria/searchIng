@@ -1,6 +1,9 @@
-export default class Handler {
+//import {searchBarUI} from "./searchBarUI.js";
+
+class Handler {
 
     constructor() {
+        console.log("Intializing handler");
         chrome.runtime.onMessage.addListener(this.listen);
         this.dataPath = "../../data.json";
         this.dataFiltered = {}
@@ -31,6 +34,7 @@ export default class Handler {
             // this.sendMessage({received:true});
             console.log("Url valid, starting to load search bar");
             this.init();
+            sendResponse({ message: 'Initializing searchBarUI' });
         }
 
         // if message unload -> call unload and clear dataFiltered
@@ -71,3 +75,5 @@ export default class Handler {
     }
 
 }
+
+const handler = new Handler();
