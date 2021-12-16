@@ -2,13 +2,11 @@ from selenium import webdriver
 from bs4 import BeautifulSoup
 from typing import List
 
-# TODO: should this be interactive through the terminal?
-
 
 class WebScrapper:
     def __init__(self, url: str):
         self.url = url
-        # fix this hardcoded path to make it portable to all OS
+        # TODO: fix this hardcoded path to make it portable to all OS
         self.driver = webdriver.Chrome(
             "/usr/lib/chromium-browser/chromedriver")
         self.tags = []
@@ -44,8 +42,8 @@ class WebScrapper:
             btn.click()
         else:
             self.driver.find_element_by_class_name(button_identifier).click()
-        self.driver.close();
-        self.driver.switch_to.window(self.driver.window_handles[0]);
+        self.driver.close()
+        self.driver.switch_to.window(self.driver.window_handles[0])
 
     def scrap(self, tag: str) -> None:
         print("Scrapping...")
@@ -55,10 +53,12 @@ class WebScrapper:
 
     def extract_links(self) -> None:
         print("Extracting links...")
-        self.tags = list(filter(lambda x: x.string != None and x['href']!='#', self.tags))
-        self.tags = list(map(lambda x: (x.string.strip(),x['href']), self.tags))
+        self.tags = list(
+            filter(lambda x: x.string != None and x['href'] != '#', self.tags))
+        self.tags = list(
+            map(lambda x: (x.string.strip(), x['href']), self.tags))
         with open('links.txt', 'w') as file:
             for tag in self.tags:
                 # is this json like format?
                 file.write(f'{tag[0]}: {tag[1]},')
-        self.driver.close();
+        self.driver.close()

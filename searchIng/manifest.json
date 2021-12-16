@@ -4,9 +4,9 @@
     "description": "Simple search bar to navigate through Siding and other IngUc pages...",
     "version": "1.0",
     "action": {
-        "default_title": "Press Ctrl+/ to prompt the search bar UI",
-        "default_icon": "icon.png",
-        "default_popup": "./src/popup.html"
+        "default_title": "Simple search bar to navigate through page's links",
+        "default_popup": "src/popup.html",
+        "default_icon": "icon.png"
     },
     "commands": {
         "prompt_search_bar": {
@@ -24,7 +24,7 @@
     "content_scripts": [
        {
         "matches": [ "https://intrawww.ing.puc.cl/*" ],
-         "js": ["./src/scripts/handler.js"]
+         "js": ["src/scripts/handler.js"]
        }
      ],
     "permissions": [
