@@ -1,3 +1,4 @@
+// VIMIUM SEARCHBARUI (EXAMPLE)
 class searchBarUi {
 
   constructor(iframeUrl, className, handleMessage) {
